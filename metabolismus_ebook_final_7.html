@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Metabolismus – Základ Života | Rostislav Halaš</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --teal-dark:  #2a5550;
+    --teal-mid:   #3d7870;
+    --teal-light: #84b2ab;
+    --teal-pale:  #c8deda;
+    --gold:       #dfdba0;
+    --gold-dark:  #c8c480;
+    --cream:      #f8f5ec;
+    --white:      #ffffff;
+    --text-dark:  #1a2e2b;
+    --text-mid:   #3a5450;
+    --text-light: #6a8a86;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Outfit',sans-serif;background:var(--cream);color:var(--text-dark);line-height:1.7;font-size:15px;}
+
+  /* ── PAGE SHELL ── */
+  .page{width:100%;max-width:920px;margin:0 auto 56px;background:var(--white);box-shadow:0 12px 48px rgba(42,85,80,.18);border-radius:2px;overflow:hidden;position:relative;page-break-after:always;}
+
+  /* ── ACCENT BAR ── */
+  .bar{height:4px;background:linear-gradient(90deg,var(--teal-dark),var(--teal-light),var(--gold));}
+
+  /* ── SECTION HEADER ── */
+  .sh{background:var(--teal-dark);padding:38px 60px 32px;position:relative;overflow:hidden;}
+  .sh::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),transparent 55%);}
+  .sh-eye{font-size:10px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:8px;}
+  .sh h2{font-family:'Playfair Display',serif;font-size:34px;font-weight:700;color:var(--white);line-height:1.2;}
+  .sh h2 em{font-style:italic;color:var(--teal-pale);}
+  .sh p{font-size:14px;color:var(--teal-pale);margin-top:10px;max-width:580px;line-height:1.6;}
+
+  /* ── CONTENT AREAS ── */
+  .c{padding:44px 60px;}
+  .ct{padding:32px 60px;}
+
+  /* ── TYPOGRAPHY ── */
+  h3{font-family:'Playfair Display',serif;font-size:22px;font-weight:600;color:var(--teal-dark);margin-bottom:14px;line-height:1.3;}
+  h3.gl{border-left:4px solid var(--gold-dark);padding-left:14px;color:var(--text-dark);}
+  h4{font-family:'Outfit',sans-serif;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--teal-mid);margin-bottom:8px;}
+  p{font-size:14.5px;color:var(--text-mid);line-height:1.75;margin-bottom:14px;}
+  p:last-child{margin-bottom:0;}
+
+  /* ── GRIDS ── */
+  .g3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:22px 0;}
+  .g2{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin:22px 0;}
+  .g2w{display:grid;grid-template-columns:3fr 2fr;gap:24px;margin:22px 0;}
+  .g4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:22px 0;}
+
+  /* ── CARDS ── */
+  .card{background:var(--cream);border-radius:10px;padding:22px;border:1px solid rgba(132,178,171,.22);}
+  .card .ci{font-size:26px;margin-bottom:10px;display:block;}
+  .card p{font-size:13px;line-height:1.6;margin:0;}
+  .card-dark{background:var(--teal-dark);border-color:var(--teal-dark);}
+  .card-dark h4{color:var(--gold);}
+  .card-dark p{color:rgba(255,255,255,.82);}
+  .card-gold{background:linear-gradient(135deg,#f5f2e0,#eeeacf);border-color:var(--gold-dark);}
+
+  /* ── HIGHLIGHT ── */
+  .hl{background:linear-gradient(135deg,var(--teal-dark),var(--teal-mid));border-radius:12px;padding:24px 28px;margin:22px 0;position:relative;overflow:hidden;}
+  .hl::before{content:'';position:absolute;top:-20px;right:-20px;width:110px;height:110px;border-radius:50%;background:rgba(223,219,160,.1);}
+  .hl h3{color:var(--gold);font-size:18px;margin-bottom:8px;position:relative;}
+  .hl p{color:rgba(255,255,255,.88);font-size:14px;margin:0;position:relative;}
+
+  /* ── STAT ROW ── */
+  .stats{display:flex;gap:16px;margin:22px 0;}
+  .stat{flex:1;background:var(--teal-dark);border-radius:10px;padding:20px;text-align:center;}
+  .stat-n{font-family:'Playfair Display',serif;font-size:36px;font-weight:700;color:var(--gold);line-height:1;margin-bottom:6px;}
+  .stat-l{font-size:12px;color:var(--teal-pale);line-height:1.4;}
+
+  /* ── BULLETS ── */
+  .bl{list-style:none;margin:12px 0;}
+  .bl li{font-size:14px;color:var(--text-mid);line-height:1.65;padding:5px 0 5px 24px;position:relative;border-bottom:1px solid rgba(132,178,171,.15);}
+  .bl li:last-child{border-bottom:none;}
+  .bl li::before{content:'';position:absolute;left:0;top:15px;width:8px;height:8px;border-radius:50%;background:var(--teal-mid);}
+  .bl.go li::before{background:var(--gold-dark);}
+  .bl li strong{color:var(--teal-dark);font-weight:600;}
+
+  /* ── INFO / WARNING BOXES ── */
+  .ib{background:linear-gradient(135deg,#f0f7f5,#e8f2f0);border:1px solid var(--teal-pale);border-left:4px solid var(--teal-mid);border-radius:8px;padding:16px 20px;margin:18px 0;}
+  .ib .lbl,.wb .lbl{font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--teal-mid);margin-bottom:5px;}
+  .ib p{font-size:13.5px;margin:0;color:var(--text-dark);}
+  .wb{background:linear-gradient(135deg,#fdf8e8,#f8f2d4);border-left:4px solid var(--gold-dark);border-radius:8px;padding:16px 20px;margin:18px 0;}
+  .wb .lbl{color:#9a8a30;}
+  .wb p{font-size:13.5px;margin:0;color:var(--text-dark);}
+
+  /* ── QUOTE BOX ── */
+  .qb{border-left:3px solid var(--gold);padding:16px 20px;background:rgba(223,219,160,.08);margin:18px 0;}
+  .qb p{font-family:'Playfair Display',serif;font-style:italic;font-size:15px;color:var(--text-mid);line-height:1.55;margin:0;}
+  .qb .qa{font-size:11px;color:var(--teal-mid);font-weight:600;letter-spacing:1px;margin-top:6px;font-style:normal;font-family:'Outfit',sans-serif;}
+
+  /* ── CYCLE FLOW ── */
+  .flow{display:flex;align-items:center;gap:8px;margin:20px 0;flex-wrap:wrap;}
+  .fstep{background:var(--teal-dark);color:var(--white);border-radius:24px;padding:9px 18px;font-size:12px;font-weight:500;text-align:center;flex:1;min-width:100px;}
+  .farr{color:var(--teal-mid);font-size:20px;flex-shrink:0;}
+
+  /* ── FUNCTION GRID ── */
+  .fg{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:16px 0;}
+  .fi{display:flex;gap:12px;align-items:flex-start;padding:14px;background:var(--cream);border-radius:8px;}
+  .fi-ico{font-size:20px;flex-shrink:0;margin-top:2px;}
+  .fi-t h5{font-size:11px;font-weight:600;color:var(--teal-dark);letter-spacing:1px;text-transform:uppercase;margin-bottom:3px;}
+  .fi-t p{font-size:12.5px;color:var(--text-mid);line-height:1.5;margin:0;}
+
+  /* ── ORGAN HEADER ── */
+  .oh{display:flex;align-items:center;gap:16px;margin-bottom:18px;}
+  .oc{width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;}
+  .oc-g{background:linear-gradient(135deg,var(--teal-mid),var(--teal-dark));}
+  .oc-y{background:linear-gradient(135deg,#d4c860,#b8a830);}
+  .oh-t h3{margin:0;font-size:22px;}
+  .oh-t p{font-size:13px;margin:2px 0 0;color:var(--text-light);}
+
+  /* ── PRODUCT CARD ── */
+  .pg{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:20px 0;}
+  .pc{border:1px solid rgba(132,178,171,.25);border-radius:10px;overflow:hidden;}
+  .pc-h{background:var(--teal-dark);padding:14px 18px;display:flex;align-items:center;gap:12px;}
+  .pc-h-ico{font-size:22px;}
+  .pc-h h4{color:var(--gold);font-size:10px;margin:0;letter-spacing:1.5px;}
+  .pc-h-name{color:var(--white);font-size:13px;font-weight:600;margin:2px 0 0;font-family:'Playfair Display',serif;}
+  .pc-b{padding:16px 18px;}
+  .pc-b ul{list-style:none;}
+  .pc-b ul li{font-size:13px;color:var(--text-mid);padding:4px 0 4px 18px;position:relative;line-height:1.5;}
+  .pc-b ul li::before{content:'✓';position:absolute;left:0;color:var(--teal-mid);font-weight:600;}
+
+  /* ── DOSAGE ── */
+  .dr{display:flex;gap:4px;margin:18px 0;}
+  .dt{flex:1;text-align:center;padding:16px 8px;border-radius:8px;background:var(--cream);border:1px solid rgba(132,178,171,.2);}
+  .dt-l{font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--teal-light);margin-bottom:10px;}
+  .dp{background:var(--teal-dark);color:var(--white);border-radius:6px;padding:5px 8px;font-size:11px;margin-bottom:4px;line-height:1.3;}
+
+  /* ── TIP BOX ── */
+  .tip{background:linear-gradient(135deg,var(--teal-dark),#1e4040);border-radius:12px;padding:20px 24px;margin:20px 0;display:flex;gap:14px;align-items:flex-start;}
+  .tip-e{font-size:28px;flex-shrink:0;margin-top:2px;}
+  .tip-c h4{color:var(--gold);margin-bottom:6px;font-size:10px;letter-spacing:2px;}
+  .tip-c p{color:rgba(255,255,255,.88);font-size:13.5px;margin:0;line-height:1.6;}
+  .tip-c a{color:var(--gold);font-weight:600;}
+
+  /* ── HABIT CARDS ── */
+  .hc{text-align:center;padding:20px 12px;background:var(--cream);border-radius:10px;border:1px solid rgba(132,178,171,.2);}
+  .hc-i{font-size:32px;display:block;margin-bottom:10px;}
+  .hc h5{font-family:'Outfit',sans-serif;font-size:11px;font-weight:600;color:var(--teal-dark);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;}
+  .hc p{font-size:12px;color:var(--text-light);line-height:1.5;margin:0;}
+
+  /* ── MINDSET ── */
+  .mc{padding:20px 16px;border-radius:10px;text-align:center;}
+  .mc-dark{background:var(--teal-dark);}
+  .mc-light{background:linear-gradient(135deg,#f0f7f5,#e8f2f0);border:1px solid var(--teal-pale);}
+  .mc-gold{background:linear-gradient(135deg,#f5f2e0,#eeead0);border:1px solid var(--gold-dark);}
+  .mc-i{font-size:28px;display:block;margin-bottom:10px;}
+  .mc h5{font-family:'Playfair Display',serif;font-size:15px;font-weight:600;margin-bottom:8px;}
+  .mc-dark h5{color:var(--gold);}
+  .mc-light h5{color:var(--teal-dark);}
+  .mc-gold h5{color:var(--text-dark);}
+  .mc p{font-size:12.5px;line-height:1.55;margin:0;}
+  .mc-dark p{color:rgba(255,255,255,.8);}
+
+  /* ── TIMELINE ── */
+  .tl{margin:20px 0;position:relative;}
+  .tl::before{content:'';position:absolute;left:22px;top:10px;bottom:10px;width:2px;background:linear-gradient(to bottom,var(--teal-mid),var(--teal-pale));}
+  .tli{display:flex;gap:16px;margin-bottom:18px;}
+  .tld{width:44px;height:44px;border-radius:50%;background:var(--teal-dark);color:var(--gold);font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative;z-index:1;box-shadow:0 0 0 3px var(--white);}
+  .tlb{padding-top:10px;flex:1;}
+  .tlb h5{font-weight:600;color:var(--teal-dark);font-size:14px;margin-bottom:3px;}
+  .tlb p{font-size:13px;margin:0;}
+
+  /* ── SUPP TABLE ── */
+  .st{width:100%;border-collapse:collapse;margin:16px 0;font-size:13px;}
+  .st thead tr{background:var(--teal-dark);color:var(--white);}
+  .st thead th{padding:12px 14px;text-align:left;font-weight:600;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;}
+  .st tbody tr{border-bottom:1px solid rgba(132,178,171,.2);}
+  .st tbody tr:nth-child(even){background:var(--cream);}
+  .st tbody td{padding:11px 14px;color:var(--text-mid);vertical-align:top;}
+  .st tbody td:first-child{font-weight:600;color:var(--teal-dark);}
+
+  /* ── 3R BOX ── */
+  .r3{display:flex;gap:14px;margin:20px 0;}
+  .r3-item{flex:1;background:var(--teal-dark);border-radius:10px;padding:22px 18px;text-align:center;}
+  .r3-num{font-family:'Playfair Display',serif;font-size:42px;font-weight:700;color:var(--gold);line-height:1;}
+  .r3-name{font-size:13px;font-weight:600;color:var(--white);text-transform:uppercase;letter-spacing:2px;margin:8px 0 6px;}
+  .r3-desc{font-size:12px;color:rgba(255,255,255,.75);line-height:1.5;}
+
+  /* ── DIVIDER ── */
+  .div{height:1px;background:linear-gradient(90deg,var(--teal-pale),transparent);margin:24px 0;}
+
+  /* ── PAGE FOOTER ── */
+  .pf{height:4px;background:linear-gradient(90deg,var(--teal-dark),var(--teal-light),var(--gold));}
+  .pn{position:absolute;bottom:18px;right:28px;font-size:10px;font-weight:600;letter-spacing:2px;color:var(--text-light);text-transform:uppercase;}
+  .pl{position:absolute;bottom:16px;left:28px;font-size:10px;font-weight:600;letter-spacing:1.5px;color:var(--teal-light);text-transform:uppercase;}
+
+  /* ── COVER ── */
+  .cover{background:var(--teal-dark);min-height:700px;display:flex;flex-direction:column;position:relative;overflow:hidden;}
+  .cover-pat{position:absolute;inset:0;opacity:.06;background:radial-gradient(circle at 20% 30%,var(--gold) 0%,transparent 50%),radial-gradient(circle at 80% 70%,var(--teal-light) 0%,transparent 50%),repeating-linear-gradient(45deg,transparent,transparent 30px,rgba(255,255,255,.03) 30px,rgba(255,255,255,.03) 31px);}
+  .cover-top{position:absolute;top:0;left:0;right:0;height:5px;background:linear-gradient(90deg,var(--gold),var(--teal-light),var(--gold));}
+  .cover-body{position:relative;z-index:2;padding:64px 68px 40px;flex:1;display:flex;flex-direction:column;}
+  .cover-eye{font-size:11px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:30px;}
+  .cover-title{font-family:'Playfair Display',serif;font-size:60px;font-weight:700;color:var(--white);line-height:1.08;margin-bottom:6px;}
+  .cover-title em{font-style:italic;color:var(--gold);}
+  .cover-sub{font-family:'Playfair Display',serif;font-size:20px;font-weight:400;font-style:italic;color:var(--teal-pale);margin-bottom:36px;line-height:1.4;}
+  .cover-div{width:80px;height:2px;background:linear-gradient(90deg,var(--gold),transparent);margin-bottom:32px;}
+  .cover-badges{display:flex;gap:14px;margin-bottom:32px;flex-wrap:wrap;}
+  .badge{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.07);border:1px solid rgba(223,219,160,.25);border-radius:40px;padding:8px 18px 8px 12px;}
+  .badge-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+  .badge span{font-size:12px;font-weight:500;color:var(--teal-pale);letter-spacing:.5px;}
+  .cover-pillars{display:flex;gap:16px;margin-bottom:36px;}
+  .cp{background:rgba(255,255,255,.07);border:1px solid rgba(223,219,160,.22);border-radius:8px;padding:16px 18px;flex:1;text-align:center;}
+  .cp-i{font-size:26px;margin-bottom:8px;display:block;}
+  .cp-l{font-size:11px;font-weight:600;color:var(--gold);letter-spacing:1px;text-transform:uppercase;}
+  .cover-q{margin-top:auto;border-left:3px solid var(--gold);padding:16px 20px;background:rgba(223,219,160,.07);}
+  .cover-q p{font-family:'Playfair Display',serif;font-style:italic;font-size:15.5px;color:var(--teal-pale);line-height:1.5;margin:0;}
+  .cover-q .qa{font-size:11px;color:var(--gold);font-weight:600;margin-top:6px;font-style:normal;font-family:'Outfit',sans-serif;letter-spacing:1px;}
+  .cover-disc{background:rgba(255,255,255,.04);border-top:1px solid rgba(255,255,255,.1);padding:18px 68px;font-size:11px;color:rgba(255,255,255,.42);line-height:1.65;}
+
+  /* ── COLOR BAR CELLS ── */
+  .color-row{display:flex;flex-direction:column;gap:8px;margin-top:10px;}
+  .color-cell{background:rgba(255,255,255,.08);border-radius:6px;padding:9px 14px;}
+  .color-cell-title{font-weight:600;font-size:13px;margin-bottom:3px;}
+  .color-cell p{color:rgba(255,255,255,.72);font-size:12px;margin:0;}
+
+  /* ── STRESS ICONS ── */
+  .stress-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0;}
+  .sg-item{background:var(--cream);border-radius:8px;padding:14px;text-align:center;border:1px solid rgba(132,178,171,.2);}
+  .sg-item .si{font-size:24px;display:block;margin-bottom:6px;}
+  .sg-item p{font-size:12px;color:var(--text-mid);line-height:1.4;margin:0;}
+  .sg-item strong{display:block;font-size:11px;font-weight:600;color:var(--teal-dark);text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px;}
+
+  @media print{body{background:white;}.page{box-shadow:none;margin:0;max-width:100%;}}
+  @media(max-width:768px){
+    .g3,.g2,.g2w,.fg,.pg,.g4,.stress-grid{grid-template-columns:1fr;}
+    .cover-pillars,.stats,.dr,.r3,.flow{flex-direction:column;}
+    .c,.ct,.sh,.cover-body,.cover-disc{padding:28px 24px;}
+    .cover-title{font-size:38px;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ STRANA 1: COVER ═══════════════ -->
+<div class="page cover">
+  <div class="cover-pat"></div>
+  <div class="cover-top"></div>
+  <div class="cover-body">
+    <div class="cover-eye">Výživový poradce · Rostislav Halaš</div>
+    <div class="cover-title">Metabolismus<br><em>Základ Života</em></div>
+    <div class="cover-sub">Jak fungují vaše játra, střeva a buňky<br>a proč na tom závisí vše ostatní</div>
+    <div class="cover-div"></div>
+    <div class="cover-badges">
+      <div class="badge"><div class="badge-dot" style="background:#84b2ab;"></div><span>Střevní metabolismus</span></div>
+      <div class="badge"><div class="badge-dot" style="background:#dfdba0;"></div><span>Jaterní metabolismus</span></div>
+      <div class="badge"><div class="badge-dot" style="background:#c8deda;"></div><span>Buněčný metabolismus</span></div>
+    </div>
+    <div class="cover-pillars">
+      <div class="cp"><span class="cp-i">🌿</span><div class="cp-l">Výživa & Suplementace</div></div>
+      <div class="cp"><span class="cp-i">🔄</span><div class="cp-l">Správné návyky</div></div>
+      <div class="cp"><span class="cp-i">🧠</span><div class="cp-l">Psychická pohoda</div></div>
+      <div class="cp"><span class="cp-i">💤</span><div class="cp-l">Spánek & Regenerace</div></div>
+    </div>
+    <div class="cover-q">
+      <p>„Aktivní metabolismus je základem všeho — zdraví, energie a radosti ze života. Pečujte o sebe. Posilujte svá střeva, játra a buňky."</p>
+      <div class="qa">odborník na výživu</div>
+    </div>
+  </div>
+  <div class="cover-disc">
+    <strong style="color:rgba(255,255,255,.6);">Důležité upozornění:</strong> Každý člověk je jedinečný a jeho potřeby se mohou lišit v závislosti na zdravotním stavu, věku, pohlaví a dalších faktorech. Informace v tomto e-booku mají výhradně vzdělávací charakter a neslouží jako náhrada za odbornou lékařskou péči. Při závažném nebo chronickém onemocnění, užívání léků nebo specifickém zdravotním stavu vždy konzultujte jakékoli změny životosprávy a suplementace se svým lékařem nebo specialistou. Výsledky se mohou u jednotlivých osob lišit.
+  </div>
+  <div class="pf"></div>
+  <span class="pn">1 / 10</span>
+</div>
+
+
+<!-- ═══════════════ STRANA 2: CO JE METABOLISMUS ═══════════════ -->
+<div class="page">
+  <div class="sh">
+    <div class="sh-eye">Kapitola 1</div>
+    <h2>Metabolismus — <em>co to vlastně je?</em></h2>
+    <p>Název pochází z řeckého <em>metabo</em> — přeměna. Je to vše, co probíhá uvnitř organismu. Každou vteřinu. Bez přestávky.</p>
+  </div>
+  <div class="c">
+
+    <div class="qb">
+      <p>„Metabolismus je jakási množina biochemických reakcí, které probíhají neustále každou vteřinu. Je to vše, co probíhá uvnitř našeho organismu."</p>
+      <div class="qa">Odborná lékařská přednáška — Metabolismus základ života</div>
+    </div>
+
+    <p>Metabolismus dělíme na tři základní složky: <strong>látkový metabolismus</strong> (tvorba a rozpad bílkovin, cukrů, tuků a nukleových kyselin), <strong>energetický metabolismus</strong> (výroba energie nezbytné pro život) a <strong>detoxikační metabolismus</strong> — odbourávání odpadních a toxických látek včetně cizorodých xenobiotik, která tělu škodí.</p>
+
+    <div class="stats">
+      <div class="stat"><div class="stat-n">200 m²</div><div class="stat-l">Plocha střevní sliznice — největší kontaktní plocha s vnějším světem</div></div>
+      <div class="stat"><div class="stat-n">3 min</div><div class="stat-l">Tak často proteče veškerá krev tělem přes játra — 500 funkcí najednou</div></div>
+      <div class="stat"><div class="stat-n">37 bil.</div><div class="stat-l">Buněk v těle — každá závisí na zásobení živinami přes základní hmotu</div></div>
+    </div>
+
+    <h3 class="gl">Tři patra metabolismu</h3>
+
+        <p>Odborníci se shodují, že metabolismus má tři vzájemně provázaná patra. Výpadek jedné se projeví v celém systému:</p>
+
+    <div class="g3">
+      <div class="card">
+        <span class="ci">🌱</span>
+        <h4>1. Střevní metabolismus</h4>
+        <p>Trávení, vstřebávání aminokyselin, jednoduchých cukrů a mastných kyselin, střevní bariéra a imunitní funkce střevní sliznice.</p>
+      </div>
+      <div class="card">
+        <span class="ci">🛡️</span>
+        <h4>2. Jaterní metabolismus</h4>
+        <p>Třídění, ukládání a přeměna živin. Detoxikace krve od škodlivin. Přes 500 funkcí zvládají játra simultánně.</p>
+      </div>
+      <div class="card">
+        <span class="ci">🔬</span>
+        <h4>3. Buněčný metabolismus</h4>
+        <p>Výroba energie (ATP), syntéza hormonů a enzymů, autofagie — čistění buněk. Probíhá v základní hmotě (Grundsubstanz).</p>
+      </div>
+    </div>
+
+    <h3 class="gl">Enzymy — tiší dirigenti metabolismu</h3>
+    <p>Klíčovou roli hrají <strong>enzymy</strong> — bílkoviny, které urychlují biochemické reakce, aniž by se při tom samy spotřebovávaly. Bez enzymů by metabolismus nemohl fungovat. A enzymy potřebují ke své práci <strong>vitamíny jako kofaktory</strong> — látky, které si tělo neumí samo syntetizovat a musí je přijímat v potravě.</p>
+
+    <div class="flow">
+      <div class="fstep">🍽 Příjem potravy</div><div class="farr">→</div>
+      <div class="fstep">🌱 Střeva — trávení & vstřebávání</div><div class="farr">→</div>
+      <div class="fstep">🛡️ Játra — třídění & detoxikace</div><div class="farr">→</div>
+      <div class="fstep">🩸 Krev — transport živin</div><div class="farr">→</div>
+      <div class="fstep">🔬 Buňky — energie & regenerace</div>
+    </div>
+
+    <div class="ib">
+      <div class="lbl">💡 Klíčový poznatek</div>
+      <p>Anabolický metabolismus (tvorba složitějších látek) spotřebovává energii. Katabolický metabolismus (spalování — rozklad na jednodušší látky) energii uvolňuje. Oba procesy musí být v rovnováze, aby tělo fungovalo optimálně.</p>
+    </div>
+
+    <h3 class="gl">Metabolický cyklus — dokonalá souhra</h3>
+    <p>Brožura Komplexní metabolická kúra popisuje 10 kroků, jak živiny putují tělem — od prvního soustu až po vyloučení odpadů:</p>
+    <div class="flow">
+      <div class="fstep">1. Potrava vstupuje do trávicího traktu</div><div class="farr">→</div>
+      <div class="fstep">2–3. Žaludek + tenké střevo — předtrávení enzymy + slinnami</div><div class="farr">→</div>
+      <div class="fstep">4. Střevní klky — vstřebávání živin, blokace toxinů</div><div class="farr">→</div>
+      <div class="fstep">5–6. Játra (portální žílou) — třídění, detoxikace, využití</div><div class="farr">→</div>
+      <div class="fstep">7–8. Krevní oběh → základní hmota (alkalická) → buňky</div><div class="farr">→</div>
+      <div class="fstep">9–10. Odpadní látky + CO₂ zpět do jater → ledviny + střeva ven</div>
+    </div>
+    <div class="ib">
+      <div class="lbl">📌 Klíčový princip</div>
+      <p>„Teprve když je v našem metabolismu vše v souhře, můžeme plně čelit životním výzvám." Alkalický mezibuněčný prostor (základní hmota) umožňuje volný průchod živin a kyslíku k buňkám — a odvod odpadů zpět. Překyselení tento průtok blokuje.</p>
+    </div>
+
+  </div>
+  <div class="pf"></div>
+  <span class="pl">Metabolismus · Základ Života</span>
+  <span class="pn">2 / 10</span>
+</div>
+
+
+<!-- ═══════════════ STRANA 3: STŘEVA ═══════════════ -->
+<div class="page">
+  <div class="sh">
+    <div class="sh-eye">Kapitola 2 · 1. patro metabolismu</div>
+    <h2>Střevo — <em>kde začíná pohoda i imunita</em></h2>
+    <p>200 m² sliznice, 100 miliard bakterií, 70 % imunitních buněk. Střevo je víc než trávicí trubice — je to komunikační centrum celého těla.</p>
+  </div>
+  <div class="c">
+
+    <div class="oh">
+      <div class="oc oc-g">🌱</div>
+      <div class="oh-t">
+        <h3>Střevní metabolismus</h3>
+        <p>Největší a nejdůležitější kontaktní plocha s vnějším světem — 200 m² sliznice</p>
+      </div>
+    </div>
+
+    <p>Střevní stěna má <strong>dvojí funkci</strong> — vstřebávat živiny a zároveň být nepropustnou bariérou. Tato dvojakost ji dělá zranitelnou. Pokud se propustnost střevní stěny zvýší (syndrom „leaky gut"), pronikají do těla škodlivé látky, bakteriální fragmenty a alergeny — což metabolismus dlouhodobě zatěžuje.</p>
+
+    <div class="fg">
+      <div class="fi"><span class="fi-ico">🔄</span><div class="fi-t"><h5>Trávení & vstřebávání</h5><p>Trávicí enzymy žaludku, tenkého střeva a slinivky rozkládají živiny na aminokyseliny, jednoduché cukry a mastné kyseliny — ty pak přechází přes střevní epitel do krve.</p></div></div>
+      <div class="fi"><span class="fi-ico">🛡️</span><div class="fi-t"><h5>Ochranná bariéra</h5><p>Zdravá střevní sliznice zabraňuje průniku toxinů, bakteriálních fragmentů, alergenů a kancerogenů z střeva do těla. Klíčová role pro celkovou imunitu.</p></div></div>
+      <div class="fi"><span class="fi-ico">🦠</span><div class="fi-t"><h5>Mikrobiom — živý koberec</h5><p>Prospěšné bakterie se rozprostírají jako „živý travní koberec" po celém povrchu střeva (odborník na výživu). Fermentují vlákninu, produkují vitamín K2 a krátké mastné kyseliny.</p></div></div>
+      <div class="fi"><span class="fi-ico">🧠</span><div class="fi-t"><h5>Osa střevo–mozek</h5><p>Přes 90 % serotoninu se tvoří ve střevě. Slizniční imunitní systém v střevní stěně je první obrannou linií organismu proti patogenním mikroorganismům.</p></div></div>
+    </div>
+
+    <div class="div"></div>
+
+    <div class="g2">
+      <div>
+        <h3 class="gl">Co poškozuje mikrobiom?</h3>
+        <ul class="bl">
+          <li><strong>Antibiotika</strong> — ničí i prospěšné bakteriální kmeny</li>
+          <li><strong>Cukr a rafinované sacharidy</strong> — živí kvasinky a patogeny</li>
+          <li><strong>Chronický stres</strong> — mění pH a pohyblivost střev</li>
+          <li><strong>Nedostatek vlákniny</strong> — vyhladoví prospěšné bakterie</li>
+          <li><strong>Pesticidy & konzervační látky</strong> — narušují rovnováhu flóry</li>
+          <li><strong>Alkohol a léky</strong> v nadbytku poškozují sliznici</li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="gl">Triple Biotic — pro ochranu střeva</h3>
+        <p style="font-size:13.5px;">Klíčem ke střevnímu zdraví je synergie tří složek:</p>
+        <ul class="bl go">
+          <li><strong>Probiotika</strong> — živé bakteriální kmeny, které osídlují střevo</li>
+          <li><strong>Prebiotika</strong> — potrava pro prospěšné bakterie (česnek, topinambur, banán)</li>
+          <li><strong>Postbiotika</strong> — metabolity bakterií s přímým terapeutickým účinkem</li>
+          <li><strong>Dvojité zapouzdření</strong> — bakterie musí projít kyselým žaludkem nepoškozené, aby se dostaly do tlustého střeva</li>
+          <li><strong>Colostrum</strong> — imunologický základ pro výživu a ochranu střevní stěny</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="wb">
+      <div class="lbl">⚠️ Víte, že?</div>
+      <p>Až 70 % imunitního systému sídlí ve střevní sliznici. Opakované infekce, alergie nebo autoimunitní problémy mohou být signálem narušeného mikrobiomu — ne jen „slabé imunity". Střevní zdraví je základem celkové obranyschopnosti organismu.</p>
+    </div>
+
+    <div class="tip">
+      <span class="tip-e">💬</span>
+      <div class="tip-c">
+        <h4>Zajímá vás, jak podpořit svůj mikrobiom?</h4>
+        <p>Trávicí obtíže, nadýmání nebo oslabená imunita mohou mít základ ve střevě. Rádi probereme váš individuální plán střevního zdraví.<br><br>
+        📧 <strong>rostahalas@gmail.com</strong> &nbsp;·&nbsp; 📞 <strong>+420 739 032 837</strong></p>
+      </div>
+    </div>
+
+  </div>
+  <div class="pf"></div>
+  <span class="pl">Metabolismus · Základ Života</span>
+  <span class="pn">3 / 10</span>
+</div>
+
+
+<!-- ═══════════════ STRANA 4: JÁTRA + BUŇKY ═══════════════ -->
+<div class="page">
+  <div class="sh">
+    <div class="sh-eye">Kapitola 3 & 4 · 2. a 3. patro metabolismu</div>
+    <h2>Játra & Buňky — <em>multitalent a základní hmota</em></h2>
+    <p>Játra jsou „multitalentem metabolismu" (odborník na výživu) — třídí, ukládají, přeměňují, detoxikují. Buňky pracují ve svém mezibuněčném prostoru — základní hmotě.</p>
+  </div>
+  <div class="ct">
+
+    <div class="g2">
+      <div>
+        <div class="oh">
+          <div class="oc oc-y">🛡️</div>
+          <div class="oh-t"><h3>Játra — 500+ funkcí</h3><p>„Multitalent des Stoffwechsels" — odborník na výživu</p></div>
+        </div>
+        <ul class="bl">
+          <li><strong>Třídění & ukládání</strong> živin: vitamíny A, D, B12, železo, glykogen</li>
+          <li><strong>Přeměna živin</strong> tak, aby byly kontinuálně zásobovány všechny buňky</li>
+          <li><strong>Detoxikace</strong> krve od xenobiotik, léků, alkoholu, pesticidů a hormonů</li>
+          <li><strong>Syntéza bílkovin</strong>, cholesterolu a žlučových kyselin</li>
+          <li><strong>Regulace krevního cukru</strong> přes glykogenózu</li>
+          <li><strong>Glutathion</strong> — nejsilnější endogenní antioxidant, chránící jaterní buňky</li>
+        </ul>
+        <div class="ib">
+          <div class="lbl">🔬 Zajímavost</div>
+          <p>Každé 3 minuty proteče veškerá krev tělem přes játra — při tom zvládají přes 500 metabolických a zásobovacích funkcí simultánně.</p>
+        </div>
+      </div>
+      <div>
+        <div class="oh">
+          <div class="oc oc-g" style="font-size:20px;">🔬</div>
+          <div class="oh-t"><h3>Základní hmota & buňky</h3><p>Prostor, kde buňky žijí a pracují</p></div>
+        </div>
+        <p style="font-size:13.5px;">Než se živiny z krve dostanou do buněk, musí projít <strong>základní hmotou</strong> (Grundsubstanz) — mezibuněčným prostorem. Změny pH nebo zanesení tohoto prostoru narušují zásobování i odvod odpadních látek.</p>
+        <ul class="bl">
+          <li><strong>Překyselení základní hmoty</strong> brzdí přísun živin i detoxikaci</li>
+          <li><strong>Aloe vera</strong> působí přímo na buněčný metabolismus a průchodnost základní hmoty</li>
+          <li><strong>Zásadité minerály</strong> (karbonáty + citráty) neutralizují přebytek kyselin</li>
+          <li>Po „vyčistění" základní hmoty živiny opět volně proudí k buňkám</li>
+        </ul>
+        <div class="wb">
+          <div class="lbl">💡 Vědecký poznatek</div>
+          <p>Kvalitní Aloe Vera gel na pití působí přímo na buněčný metabolismus — zlepšuje průchodnost základní hmoty a biologickou dostupnost živin pro buňky.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="div"></div>
+
+    <h3 class="gl">Jak přirozeně podpořit játra?</h3>
+    <div class="g3">
+      <div class="card">
+        <span class="ci">🌿</span>
+        <h4>Rostlinné tonikum</h4>
+        <p>Ostropestřec mariánský (silymarin), artyčok, pelyněk, pampeliška, kurkuma — klasické jaterní podpůrce s vědecky potvrzenou účinností.</p>
+      </div>
+      <div class="card">
+        <span class="ci">🥚</span>
+        <h4>Cholin & methionin</h4>
+        <p>Zabraňují ukládání tuku v játrech (steatóza). Zdroje: vejce, drůbež, luštěniny. Cholin je klíčový kofaktor jaterních funkcí.</p>
+      </div>
+      <div class="card">
+        <span class="ci">🛡️</span>
+        <h4>Antioxidační ochrana</h4>
+        <p>Vitamín C, E, selen a zinek chrání jaterní buňky před oxidačním stresem ze xenobiotik, alkoholu a UV záření.</p>
+      </div>
+    </div>
+
+    <div class="hl">
+      <h3>💡 Mitochondrie — elektrárny buněk</h3>
+      <p>Mitochondrie spalují glukózu a tuky na ATP (adenosintrifosfát) — buněčné palivo. Potřebují koenzym Q10, hořčík, vitamíny skupiny B, zinek a omega-3. Bez těchto látek klesá produkce energie a pociťujete chronickou únavu — i přesto, že „normálně jíte".</p>
+    </div>
+
+  </div>
+  <div class="pf"></div>
+  <span class="pl">Metabolismus · Základ Života</span>
+  <span class="pn">4 / 10</span>
+</div>
+
+
+<!-- ═══════════════ STRANA 5: CIVILIZAČNÍ ZÁTĚŽ & 3R ═══════════════ -->
+<div class="page">
+  <div class="sh">
+    <div class="sh-eye">Kapitola 5</div>
+    <h2>Civilizační stres — <em>nepřítel metabolismu</em></h2>
+    <p>odborný lékař pojmenovává konkrétní faktory, které poškozují metabolismus až na genetické a molekulární úrovni. A popisuje, jak se tělo brání.</p>
+  </div>
+  <div class="c">
+
+    <div class="qb">
+      <p>„Všechny tyto stresové faktory zatěžují náš metabolismus a vedou k poškození na té nejjemnější úrovni — na genetické, molekulární a mikroskopické úrovni."</p>
+      <div class="qa">Odborná lékařská přednáška — Metabolismus základ života</div>
+    </div>
+
+    
+    <h3 class="gl">6 hlavních civilizačních stresových faktorů</h3>
+    <div class="stress-grid">
+      <div class="sg-item"><span class="si">☣️</span><strong>Oxidační stres</strong><p>Kouření, alkohol, UV záření, léky, cizorodé látky — tvoří volné radikály poškozující buňky</p></div>
+      <div class="sg-item"><span class="si">🍟</span><strong>Nutriční stres</strong><p>Nedostatek bílkovin, přebytek cukrů a tuků, málo minerálů a vitamínů, konzervační látky</p></div>
+      <div class="sg-item"><span class="si">🧪</span><strong>Xenobiotika</strong><p>Kancerogeny, pesticidy, průmyslové chemikálie — látky cizí tělu, které ho zásadně zatěžují</p></div>
+      <div class="sg-item"><span class="si">😤</span><strong>Psychický stres</strong><p>Chronický stres mění hormonální prostředí, narušuje mikrobiom, blokuje regeneraci</p></div>
+      <div class="sg-item"><span class="si">🏙️</span><strong>Znečištění prostředí</strong><p>Ovzduší, voda, půda — každodenní expozice toxinům přetěžuje detoxikační systémy</p></div>
+      <div class="sg-item"><span class="si">💊</span><strong>Léky & chemie</strong><p>Antibiotika, NSAID, hormonální antikoncepce — vedlejší účinky na střevo i játra</p></div>
+    </div>
+
+    <div class="div"></div>
+
+    <h3 class="gl">Jak tělo reaguje — princip 3R</h3>
+    <p>odborný lékař popisuje, že organismus aktivuje tři kompenzační mechanismy, aby se s poškozením vyrovnal:</p>
+
+    <div class="r3">
+      <div class="r3-item">
+        <div class="r3-num">R</div>
+        <div class="r3-name">Regulace</div>
+        <div class="r3-desc">Uchování vnitřního prostředí — homeostázy. Tělo reguluje pH, teplotu, hladiny hormonů a elektrolytů.</div>
+      </div>
+      <div class="r3-item">
+        <div class="r3-num">R</div>
+        <div class="r3-name">Reparace</div>
+        <div class="r3-desc">Náhrada poškozených tkání tkáněmi novými. Probíhá zejména v noci během spánku.</div>
+      </div>
+      <div class="r3-item">
+        <div class="r3-num">R</div>
+        <div class="r3-name">Regenerace</div>
+        <div class="r3-desc">Obnova buněk — autofagie a syntéza nových buněčných struktur. Klíčová pro dlouhověkost.</div>
+      </div>
+    </div>
+
+    <div class="wb">
+      <div class="lbl">⚠️ Kdy 3R nestačí?</div>
+      <p>Pokud jsou tyto kompenzační mechanismy <strong>dlouhodobě přetěženy</strong>, dochází nejprve k „předstupni nemoci" — mikroskopickým změnám v buňkách, které ještě nejsou nemocí. Pokud trvají měsíce až roky, mohou vyústit ve skutečné civilizační onemocnění. Proto je prevence klíčová — <strong>posilovat 3R dřív, než jsou vyčerpány.</strong></p>
+    </div>
+
+    <div class="hl">
+      <h3>🌿 Metabolická kúra jako primární prevence</h3>
+      <p>„Metabolická kúra Komplexní metabolická kúra podporuje samouzdravovací procesy v organismu — zesiluje kompenzační mechanismy regulace, reparace a regenerace, které mohly být oslabeny v důsledku dlouhodobého působení civilizačních stresových faktorů."</p>
+    </div>
+
+  </div>
+  <div class="pf"></div>
+  <span class="pl">Metabolismus · Základ Života</span>
+  <span class="pn">5 / 10</span>
+</div>
+
+
+<!-- ═══════════════ STRANA 6: SPRÁVNÁ VÝŽIVA ═══════════════ -->
+<div class="page">
+  <div class="sh">
+    <div class="sh-eye">Kapitola 6</div>
+    <h2>Správná výživa — <em>palivo pro metabolismus</em></h2>
+    <p>„Jsi to, co jíš." — Du bist, was du isst. Každá buňka v těle je postavena z toho, co jíme. Kvalita potravy se přímo promítá do kvality metabolismu.</p>
+  </div>
+  <div class="c">
+
+    <div class="g2w">
+      <div>
+        
+        <h3 class="gl">Základní principy výživy</h3>
+        <ul class="bl">
+          <li><strong>Pestrost, ne restrikce</strong> — čím více různých potravin, tím bohatší mikrobiom</li>
+          <li><strong>Celé potraviny na prvním místě</strong> — zelenina, ovoce, luštěniny, ořechy, semena</li>
+          <li><strong>Kvalitní bílkoviny</strong> — 1,2–1,6 g/kg těl. váhy: drůbež, ryby, vejce, luštěniny</li>
+          <li><strong>Zdravé tuky</strong> — olivový olej, avokádo, ořechy, tučné ryby (omega-3)</li>
+          <li><strong>Komplexní sacharidy</strong> — celozrnné, batáty, quinoa, luštěniny</li>
+          <li><strong>Vláknina min. 30 g/den</strong> — prebiotická funkce pro mikrobiom</li>
+          <li><strong>Omezit cukr</strong> — do 25 g volných cukrů denně (WHO)</li>
+          <li><strong>Omezit konzervační látky</strong> — přetěžují játra a mikrobiom</li>
+        </ul>
+      </div>
+      <div>
+        <div class="card-dark card">
+          <h4>🌈 Barevný talíř</h4>
+          <div class="color-row">
+            <div class="color-cell">
+              <div class="color-cell-title" style="color:#e8a87c;">🟠 Oranžová / červená</div>
+              <p>Beta-karoten, lykopen — ochrana buněk, srdce, protizánětlivé</p>
+            </div>
+            <div class="color-cell">
+              <div class="color-cell-title" style="color:#8ac87c;">🟢 Zelená</div>
+              <p>Chlorofyl, folát, K2 — detoxikace jater, kosti, metabolismus Fe</p>
+            </div>
+            <div class="color-cell">
+              <div class="color-cell-title" style="color:#a08cd8;">🟣 Fialová / modrá</div>
+              <p>Antokyany — anti-aging, mozek, střevní mikrobiom</p>
+            </div>
+            <div class="color-cell">
+              <div class="color-cell-title" style="color:#f0e68c;">🟡 Žlutá / bílá</div>
+              <p>Quercetin, alicin — imunita, antivirové, protizánětlivé</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="div"></div>
+
+    <h3 class="gl">Cílená výživa pro každé patro</h3>
+    <div class="g3">
+      <div class="card">
+        <span class="ci">🌱</span>
+        <h4>Pro střeva</h4>
+        <p>Kefír, kimchi, tempeh, kombucha, artyčok, česnek, cibule, topinambur, banán, lněná semínka, psyllium, fermentovaná zelenina</p>
+      </div>
+      <div class="card">
+        <span class="ci">🛡️</span>
+        <h4>Pro játra</h4>
+        <p>Brokolice, zelí, kurkuma, česnek, grapefruit, zelený čaj, vejce (cholin), ostropestřec, avokádo, řepa, pelyněk</p>
+      </div>
+      <div class="card">
+        <span class="ci">🔬</span>
+        <h4>Pro buňky</h4>
+        <p>Borůvky, tmavá čokoláda, ořechy, sardiny, spirulina, zelená listová zelenina, koenzym Q10 ze srdcového masa</p>
+      </div>
+    </div>
+
+
+    <div class="div"></div>
+
+    <h3 class="gl">Proč dnes nestačí jen „zdravě jíst"?</h3>
+    <p>Výzkumy ukazují dramatický pokles obsahu vitamínů a minerálů v ovoci a zelenině mezi lety 1985 a 2002. Průmyslové zemědělství, vyčerpané půdy a dlouhé přepravní řetězce způsobují, že dnešní potraviny obsahují zlomek živin oproti minulosti — a trend pokračuje.</p>
+
+<div style="width:100%;overflow:hidden;border-radius:10px;margin-bottom:14px;"><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAQDAwMDAgQDAwMEBAQFBgoGBgUFBgwICQcKDgwPDg4MDQ0PERYTDxAVEQ0NExoTFRcYGRkZDxIbHRsYHRYYGRj/2wBDAQQEBAYFBgsGBgsYEA0QGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBj/wAARCADIAfkDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD7+ooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACuW8UeNLbw/LHY21s99qUxAjto8k5PTOOfwpniv4j+FfBt1Fa61esLmRPMEEKb3C+p9M9q8An+Ovh/RfE15q+nxtqur3RKWq3kZiEAJO9mHPONqgA9B2rysfjeS1KnKze73svTv2PXweQZjjFGVCi3GWztZfe9D3Cz1n4ipfRTaj4Yge0kODHBIu9Pr81d0DlQSCM9j2r5u0D9pm7g1aO38YaLAlrIwBns9ytFn+IqxOR9K+jLW6t72zjurWVZYpFDo6nIIIyD+Va5fUhKL5Kjl67r8ELNsjxmUzUMXC19nun8yaiiivQPJCiiigAooooAKKKBQAUUUUAFFFFABRRRQAUVBdXkFnD5txIEXOBk9T6V8/fFr9oJfD2nuPDixT3EdwY1VpcbgAcyMByVzkKvGcZPGAajFydkb4fDVK8uSmj6HzS5r83pPi38Q7bUrrXYvFepWN7eEfuknPPOcup4A7BQBW5D+0P8RrPTykt3bXUU3+sJ8xd57kgPgH/AHcVr9Xkev8A6vYlq8WmfoJkUua/O60/aC+IcHiOLWtK1Ce3jQANaebJNDIo7Mrkg/UYNfQNv+0jpXiv4K6gtnN9n8Xsn2b7DbqQd7cBoyT6HPXNZ1acqcXK1znq5NiKbjfZ/gfR+QaWvifQvif4m8J6mdQtb+4lZcCeC4dn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N3o90ShB6YB7e2a77xZ8MPB3jEmbVNMWK9A+W9tT5Uo+pH3vxzXEWvw/+JvgYFPBXiW31LTwxYWV6Nh/wz78Vo1Up6VI8y7rf7ilCcNJrmX4nm/xF/Z08feJLyN5PEmmazqEzkR6hcxGCVUVc4fbwxPHNea3v7GvxcmtN8OpeG/MYcxNcyYH47K+qIPiLrmnyQDxx4L1LTTC+TeWyebEeMHgZ9fWu60XxRoHiK3E2j6rbXQPVFbDr9VPI/Kqw86N3GEvk9/x1OijVUfdi/l/w5+ZOqfs0/F7SfHVl4f13SrW2t7mVYxqUdwr24B784P0BxXv/iv9mXxF4R+FmmzeENV1HX5rM7722miWNyvXdEoPIHpkmvse8srPUbOS0vrWG5t5BteKZAysPcGszSvDNroU23Sbq7gsz/y5NIZIl/3A2Sn0Bx7V0uHdXN4VqkJXTPzkm1xU8Qi0uomhJhWF/NBUqwB656c+tVbi5a5v3lhLMznMgA4Nfop4i+GXgDxZefa/EXhLS9QuO80sIDn6sME1S074N/C/SbkT6f4J0qJx3MZf9GJFKFCEXdHesxdrNHyd8MPhP4j8e6gk62MtjpgYeddzAhcZ/hz95vpX2r4c8Pad4X8OW+i6XFsggXGT95z3Yn1NaUUMUEKxQxpHGowqIAAB7AU+t79Djq15VHqRzQQ3ERiniSVD1V1DA/gaittOsLMn7HZW9vnr5USpn8hVmikYhRRRQAUUUUAFIQGUggEHgg96WigDCbwb4WfVP7RbQbE3PXf5Q6+uOma2440jQIihVHRQMAU6ipjCMdUjSdapUSU5N22uwoooqjMKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAZJGssTRvnawwcEg/mKyLjw5DOu1dV1iAekN64/mTW1RScU9wOJm+FnhWe3vvNW/ku7wAPfy3byXEeOhR2J24q9qNk3/CS+GLSGSSQ2bSSO7tligi2Zb1JJFdHOk0kRWCYQk/x7dxH0zxUNlp0Nk0kivJLNKcyTStuZvT6D2HFY+xipXjG3/AJcUWXRJIyjqGVhgqRkEelc7YeDrDRvEJ1PRJZrGOXPn2UZ/cSZ/iCfwt7iukorSVOMmm1sNpPcKKKKsYhAIwQCD2rB1LwX4Y1WYT3ejW4uAci4hHlSqfUOuDW/RUyhGStJXE0nuYMGk63pqiOw1trqFeBFqKeYwH/AF0XDH8c1dW91CM7bnSpCBxvgkVwfwODWjRSUFHYErCK25A2CM9j1FLRRVjCiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//2Q==" alt="Čerstvé ovoce a zelenina" style="width:100%;height:auto;display:block;"></div>
+        <div style="overflow-x:auto;margin:16px 0;">
+    <table class="st">
+      <thead>
+        <tr>
+          <th>Potravina</th>
+          <th>Složka</th>
+          <th style="text-align:center;">1985<br><span style="font-weight:400;font-size:10px;">mg/100g</span></th>
+          <th style="text-align:center;">1996<br><span style="font-weight:400;font-size:10px;">mg/100g</span></th>
+          <th style="text-align:center;">2002<br><span style="font-weight:400;font-size:10px;">mg/100g</span></th>
+          <th style="text-align:center;">Rozdíl<br><span style="font-weight:400;font-size:10px;">85–02</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td rowspan="3" style="font-weight:700;color:var(--teal-dark);vertical-align:middle;">Brokolice</td><td>Vápník</td><td style="text-align:center;">103</td><td style="text-align:center;">33</td><td style="text-align:center;">28</td><td style="text-align:center;font-weight:700;color:#c0392b;">−73 %</td></tr>
+        <tr><td>Kyselina listová</td><td style="text-align:center;">47</td><td style="text-align:center;">23</td><td style="text-align:center;">18</td><td style="text-align:center;font-weight:700;color:#c0392b;">−62 %</td></tr>
+        <tr><td>Hořčík</td><td style="text-align:center;">24</td><td style="text-align:center;">18</td><td style="text-align:center;">11</td><td style="text-align:center;font-weight:600;color:#e67e22;">−55 %</td></tr>
+        <tr><td rowspan="4" style="font-weight:700;color:var(--teal-dark);vertical-align:middle;">Fazole</td><td>Vápník</td><td style="text-align:center;">56</td><td style="text-align:center;">34</td><td style="text-align:center;">22</td><td style="text-align:center;font-weight:700;color:#c0392b;">−51 %</td></tr>
+        <tr><td>Kyselina listová</td><td style="text-align:center;">39</td><td style="text-align:center;">34</td><td style="text-align:center;">30</td><td style="text-align:center;font-weight:600;color:#e67e22;">−23 %</td></tr>
+        <tr><td>Hořčík</td><td style="text-align:center;">26</td><td style="text-align:center;">22</td><td style="text-align:center;">18</td><td style="text-align:center;font-weight:600;color:#e67e22;">−31 %</td></tr>
+        <tr><td>Vitamín B6</td><td style="text-align:center;">140</td><td style="text-align:center;">55</td><td style="text-align:center;">32</td><td style="text-align:center;font-weight:700;color:#c0392b;">−77 %</td></tr>
+        <tr><td rowspan="2" style="font-weight:700;color:var(--teal-dark);vertical-align:middle;">Rajčata</td><td>Vápník</td><td style="text-align:center;">14</td><td style="text-align:center;">4</td><td style="text-align:center;">3</td><td style="text-align:center;font-weight:700;color:#c0392b;">−78 %</td></tr>
+        <tr><td>Hořčík</td><td style="text-align:center;">27</td><td style="text-align:center;">18</td><td style="text-align:center;">14</td><td style="text-align:center;font-weight:600;color:#e67e22;">−48 %</td></tr>
+        <tr><td rowspan="2" style="font-weight:700;color:var(--teal-dark);vertical-align:middle;">Mrkev</td><td>Vápník</td><td style="text-align:center;">37</td><td style="text-align:center;">31</td><td style="text-align:center;">28</td><td style="text-align:center;font-weight:600;color:#e67e22;">−24 %</td></tr>
+        <tr><td>Hořčík</td><td style="text-align:center;">21</td><td style="text-align:center;">9</td><td style="text-align:center;">6</td><td style="text-align:center;font-weight:700;color:#c0392b;">−75 %</td></tr>
+        <tr><td rowspan="2" style="font-weight:700;color:var(--teal-dark);vertical-align:middle;">Špenát</td><td>Vápník</td><td style="text-align:center;">62</td><td style="text-align:center;">19</td><td style="text-align:center;">15</td><td style="text-align:center;font-weight:700;color:#c0392b;">−76 %</td></tr>
+        <tr><td>Vitamín C</td><td style="text-align:center;">51</td><td style="text-align:center;">21</td><td style="text-align:center;">18</td><td style="text-align:center;font-weight:700;color:#c0392b;">−65 %</td></tr>
+        <tr><td rowspan="4" style="font-weight:700;color:var(--teal-dark);vertical-align:middle;">Banány</td><td>Vápník</td><td style="text-align:center;">8</td><td style="text-align:center;">7</td><td style="text-align:center;">7</td><td style="text-align:center;color:var(--text-mid);">−12 %</td></tr>
+        <tr><td>Kyselina listová</td><td style="text-align:center;">23</td><td style="text-align:center;">3</td><td style="text-align:center;">5</td><td style="text-align:center;font-weight:700;color:#c0392b;">−79 %</td></tr>
+        <tr><td>Hořčík</td><td style="text-align:center;">31</td><td style="text-align:center;">27</td><td style="text-align:center;">24</td><td style="text-align:center;font-weight:600;color:#e67e22;">−23 %</td></tr>
+        <tr><td>Vitamín B6</td><td style="text-align:center;">330</td><td style="text-align:center;">22</td><td style="text-align:center;">18</td><td style="text-align:center;font-weight:700;color:#c0392b;">−95 %</td></tr>
+        <tr><td rowspan="2" style="font-weight:700;color:var(--teal-dark);vertical-align:middle;">Jahody</td><td>Vápník</td><td style="text-align:center;">21</td><td style="text-align:center;">18</td><td style="text-align:center;">12</td><td style="text-align:center;font-weight:600;color:#e67e22;">−43 %</td></tr>
+        <tr><td>Vitamín C</td><td style="text-align:center;">60</td><td style="text-align:center;">13</td><td style="text-align:center;">8</td><td style="text-align:center;font-weight:700;color:#c0392b;">−87 %</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p style="font-size:11px;color:var(--text-light);margin-top:-8px;">Zdroj: Gelgy Pharmakonzern Switzerland (1985), Lebensmittellabor Karlsruhe (1996), Sanatorium Oberthal (2002)</p>
+
+    <div class="wb">
+      <div class="lbl">💡 Co z toho plyne?</div>
+      <p>Aby dnes člověk přijal stejné množství vitamínu B6 jako v roce 1985 z banánů, musel by jich sníst téměř <strong>20× více</strong>. Proto cílená suplementace není luxus — je to odpověď na realitu moderního zemědělství a zpracování potravin.</p>
+    </div>
+    <div class="ib">
+      <div class="lbl">🥤 Hydratace jako priorita</div>
+      <p>Při dehydrataci klesá rychlost metabolismu, krev houstne a transport živin základní hmotou se zpomaluje. <strong>Optimum: 30–35 ml čisté vody na kg tělesné váhy denně.</strong> Bylinkové čaje a voda s citronem se počítají pozitivně. Sladké nápoje a alkohol naopak organismus odvodňují.</p>
+    </div>
+
+    <div class="wb">
+      <div class="lbl">⚠️ Pozor na nutriční stres v každodenní stravě</div>
+      <p>Odborná literatura výslovně jmenuje jako zdroj nutričního stresu: <strong>nedostatek kvalitních bílkovin, nadbytek cukrů a tuků, málo minerálů a vitamínů a řadu konzervantů v potravě.</strong> „Zdravé" cereálie, ochucené jogurty nebo smoothie bowls mohou obsahovat 20–40 g cukru — čtěte složení.</p>
+    </div>
+
+    <div class="tip">
+      <span class="tip-e">🥗</span>
+      <div class="tip-c">
+        <h4>Chcete výživový plán šitý přímo na míru?</h4>
+        <p>Každé tělo reaguje jinak. Rádi vám sestavíme konkrétní plán odpovídající vašemu zdravotnímu stavu, energetickým potřebám a cílům.<br><br>
+        📧 <strong>rostahalas@gmail.com</strong> &nbsp;·&nbsp; 📞 <strong>+420 739 032 837</strong></p>
+      </div>
+    </div>
+
+  </div>
+  <div class="pf"></div>
+  <span class="pl">Metabolismus · Základ Života</span>
+  <span class="pn">6 / 10</span>
+</div>
+
+
+<!-- ═══════════════ STRANA 7: SUPLEMENTACE ═══════════════ -->
+<div class="page">
+  <div class="sh">
+    <div class="sh-eye">Kapitola 7</div>
+    <h2>Suplementace — <em>vitamíny jako kofaktory enzymů</em></h2>
+    <p>odborný lékař: vitamíny jsou kofaktory enzymů — bez nich metabolické reakce nemohou probíhat. Tělo si je nedokáže syntetizovat. Musíme je přijímat z potravy.</p>
+  </div>
+  <div class="c">
+
+    <div class="qb">
+      <p>„Vitamíny jsou látky exogenní povahy, které si naše tělo nedokáže syntetizovat a jsou součástí enzymů jako takzvané kofaktory. Musíme je nezbytně přijímat v potravě — jinak bychom nepřežili."</p>
+      <div class="qa">Odborná lékařská přednáška — Metabolismus základ života</div>
+    </div>
+
+    <h3 class="gl">Klíčové mikronutrienty pro metabolismus</h3>
+    <table class="st">
+      <thead>
+        <tr><th>Živina</th><th>Metabolická funkce</th><th>Přirozené zdroje</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Vitamíny B skupiny</td><td>Kofaktory enzymů v energetickém metabolismu — přeměna makronutrientů na ATP, nervová soustava</td><td>Celozrnné potraviny, vejce, maso, luštěniny</td></tr>
+        <tr><td>Vitamín C</td><td>Antioxidant, syntéza kolagenu, vstřebávání železa, podpora jaterní detoxikace</td><td>Paprika, kiwi, jahody, brokolice, citrusy</td></tr>
+        <tr><td>Vitamín D3 + K2</td><td>Imunita, kostní metabolismus, regulace zánětu, hormonální rovnováha</td><td>Tučné ryby, žloutky — D3 hlavně slunce</td></tr>
+        <tr><td>Hořčík (Mg)</td><td>Přes 300 enzymových reakcí, energetický metabolismus, svalová funkce, spánek</td><td>Dýňová semínka, mandle, tmavá čokoláda, listová zelenina</td></tr>
+        <tr><td>Omega-3 (EPA/DHA)</td><td>Protizánětlivé, buněčné membrány, mozek, srdce, střevní sliznice</td><td>Losos, sardinky, makrela, lněná semínka, chia</td></tr>
+        <tr><td>Zinek (Zn)</td><td>Imunita, syntéza bílkovin, pohlavní hormony, hojení ran, jaterní enzymy</td><td>Dýňová semínka, maso, mořské plody, luštěniny</td></tr>
+        <tr><td>Koenzym Q10</td><td>Mitochondriální produkce ATP, antioxidant — po 40. roce klesat zásoby</td><td>Srdcové maso, ryby, ořechy — v 40+ nestačí z potravy</td></tr>
+        <tr><td>Probiotika + prebiotika</td><td>Obnova mikrobiomu, střevní imunita, snížení zánětu, podpora detoxikace</td><td>Fermentované potraviny + vláknina z různých zdrojů</td></tr>
+      </tbody>
+    </table>
+
+    <div class="g2" style="margin-top:16px;">
+      <div class="hl" style="margin:0;">
+        <h3>⚠️ Rizikové skupiny</h3>
+        <p>Zvýšenou potřebu mají: vegané (B12, D3, omega-3, Fe, Zn), senioři 60+ (D3, B12, Mg, K2), lidé s vysokým stresem (B vitamíny, Mg, C), sportovci (elektrolyty, Q10), osoby s GIT problémy (vstřebávání sníženo).</p>
+      </div>
+      <div class="card-gold card" style="margin:0;">
+        <span class="ci">🧪</span>
+        <h4>Liposolubilní vs. hydrosolubilní</h4>
+        <p>Odborníci rozlišují vitamíny rozpustné v tucích (A, D, E, K — liposolubilní) a ve vodě (C, B komplex — hydrosolubilní). Liposolubilní se hromadí v těle, hydrosolubilní je třeba doplňovat pravidelně.</p>
+      </div>
+    </div>
+
+  </div>
+  <div class="pf"></div>
+  <span class="pl">Metabolismus · Základ Života</span>
+  <span class="pn">7 / 10</span>
+</div>
+
+
+<!-- ═══════════════ STRANA 8: LR PRODUKTY ═══════════════ -->
+<div class="page">
+  <div class="sh">
+    <div class="sh-eye">Kapitola 8 · Komplexní metabolická kúra</div>
+    <h2>Metabolická kúra — <em>tříměsíční restart těla</em></h2>
+    <p>Optimálně sladěná kombinace produktů cílí na všechny tři patra metabolismu současně. Doporučeno 2–3× ročně, u rizikových skupin kontinuálně.</p>
+  </div>
+  <div class="c">
+
+    <p>odborný lékař doporučuje kúru <strong>minimálně 3 měsíce</strong>, ideálně <strong>2–3× ročně</strong>. U osob zvýšeně ohrožených civilizačními chorobami lze užívat i dlouhodobě kontinuálně. Kúra podporuje samouzdravovací procesy — regulaci, reparaci a regeneraci.</p>
+
+    <div class="pg">
+      <div class="pc">
+        <div class="pc-h"><span class="pc-h-ico">🦠</span><div><h4>1. patro — střeva</h4><div class="pc-h-name">Symbiotika + Colostrum</div></div></div>
+        <div class="pc-b"><ul>
+          <li>1 miliarda bakterií z 12 kmenů v jedné kapsli</li>
+          <li>Technologie TRIPLE BIOTIC (pre-, pro-, postbiotika)</li>
+          <li>Dvojité zapouzdření — přežije kyselý žaludek, doputuje do tlustého střeva</li>
+          <li>Patentovaná látka Prolac-T™ — postbiotikum nové generace</li>
+          <li>Colostrum: imunoglobuliny, IGF-1, laktoferin — ochrana střevní stěny</li>
+        </ul></div>
+      </div>
+      <div class="pc">
+        <div class="pc-h"><span class="pc-h-ico">🌿</span><div><h4>2. patro — játra</h4><div class="pc-h-name">Podpora jater</div></div></div>
+        <div class="pc-b"><ul>
+          <li>Ostropestřec mariánský (silymarin) — regenerace jaterních buněk, detoxikační enzymy</li>
+          <li>Pelyněk (Artemisia absinthium) — tvorba trávicích šťáv a žluče, antioxidanty</li>
+          <li>Chlorela — přírodní antioxidanty, vitamíny B/C/K, minerály, vazba toxinů</li>
+          <li>Cholin — udržení normální funkce jater, prevence steatózy</li>
+          <li>Cystein → glutathion + taurin — nejsilnější antioxidační ochrana jater</li>
+          <li>Mangan, vitamín B6, molybden — trojitý ochranný efekt před oxidačním stresem</li>
+        </ul></div>
+      </div>
+      <div class="pc">
+        <div class="pc-h"><span class="pc-h-ico">🌱</span><div><h4>3. patro — buňky</h4><div class="pc-h-name">Aloe Vera gel na pití</div></div></div>
+        <div class="pc-b"><ul>
+          <li>Přes 200 bioaktivních látek z vnitřku listu (acemanan, aminokyseliny)</li>
+          <li>Působí přímo na buněčný metabolismus a průchodnost základní hmoty</li>
+          <li>Vitamín C — energetický metabolismus, imunita, regenerace</li>
+          <li>Zlepšuje biologickou dostupnost živin a dalších suplementů</li>
+          <li>6 variant (Active Freedom, Immune Plus, aj.)</li>
+        </ul></div>
+      </div>
+      <div class="pc">
+        <div class="pc-h"><span class="pc-h-ico">⚖️</span><div><h4>Základní hmota</h4><div class="pc-h-name">Komplexní zásobení minerály</div></div></div>
+        <div class="pc-b"><ul>
+          <li>Neutralizuje přebytek kyselin v základní hmotě</li>
+          <li>Karbonáty + citráty — čistí základní hmotu, uvolňuje cestu živinám</li>
+          <li>Hořčík — energetický metabolismus a rovnováha elektrolytů</li>
+          <li>Vápník, měď, chrom — komplexní zásobení minerály</li>
+          <li>Chrání buněčný prostor před překyselením</li>
+        </ul></div>
+      </div>
+    </div>
+
+    <div class="tip">
+      <span class="tip-e">🤝</span>
+      <div class="tip-c">
+        <h4>Nevíte, kde začít? Ozvěte se mi.</h4>
+        <p>Pokud vás zajímá, jak komplexní metabolická kúra může pomoci právě vám, nebo si chcete nechat sestavit osobní plán suplementace a výživy — rád vám poradím individuálně.<br><br>
+        📧 <strong>rostahalas@gmail.com</strong> &nbsp;·&nbsp; 📞 <strong>+420 739 032 837</strong></p>
+      </div>
+    </div>
+
+    <div class="ib">
+      <div class="lbl">💡 Tip pro zahájení kúry</div>
+      <p>Začněte s Aloe Vera gel na pitíem postupně — první dny užívejte jen <strong>5 ml na dávku</strong> a každé 3 dny zvyšujte o 5 ml, dokud nedosáhnete standardního dávkování 30 ml na dávku. Tělo si tak postupně zvykne na koncentrovanou sílu živin.</p>
+    </div>
+
+  </div>
+  <div class="pf"></div>
+  <span class="pl">Metabolismus · Základ Života</span>
+  <span class="pn">8 / 10</span>
+</div>
+
+
+<!-- ═══════════════ STRANA 9: NÁVYKY, SPÁNEK, PSYCHIKA ═══════════════ -->
+<div class="page">
+  <div class="sh">
+    <div class="sh-eye">Kapitola 9</div>
+    <h2>Návyky, spánek & psychika — <em>základ regenerace</em></h2>
+    <p>Zdraví je postoj a životní styl — vědomé rozhodnutí pečovat o sebe. Bez spánku a psychické rovnováhy žádná výživa nezafunguje naplno.</p>
+  </div>
+  <div class="c">
+
+    <div class="qb">
+      <p>„Gesundheit ist eine Haltung, ein Lebensstil, die bewusste Entscheidung auf dich und deinen Körper zu achten." — Zdraví je postoj, životní styl, vědomé rozhodnutí pečovat o sebe a své tělo.</p>
+      <div class="qa">odborník na výživu</div>
+    </div>
+
+    <div class="g4">
+      <div class="hc"><span class="hc-i">💧</span><h5>Ranní hydratace</h5><p>Sklenice vlažné vody s citronem nastartuje trávení a jaterní detoxikaci.</p></div>
+      <div class="hc"><span class="hc-i">🍽️</span><h5>Vědomé jedení</h5><p>Jezte pomalu, žvýkejte důkladně. Slinné enzymy jsou prvním krokem trávení.</p></div>
+      <div class="hc"><span class="hc-i">🏃</span><h5>Pohyb denně</h5><p>Min. 20–30 min chůze. Pohyb stimuluje lymfu a inzulínovou senzitivitu buněk.</p></div>
+      <div class="hc"><span class="hc-i">🌞</span><h5>Ranní světlo</h5><p>10–15 min denního světla synchronizuje cirkadiánní rytmus a kortizol.</p></div>
+    </div>
+
+    <div class="div"></div>
+
+    <div class="g2">
+      <div>
+        <h3 class="gl">Spánek — nejvyšší priorita</h3>
+        <p>Játra detoxikují nejintenzivněji <strong>23:00–3:00</strong>. Pokud v tu dobu nespíte, narušujete přirozenou detoxikaci. Doporučeno 7–9 hodin.</p>
+        <ul class="bl">
+          <li><strong>Glymfatický systém</strong> — mozek se čistí od beta-amyloidu jen ve spánku</li>
+          <li><strong>Růstový hormon</strong> — vrcholná produkce po půlnoci, oprava tkání</li>
+          <li><strong>Leptin & ghrelin</strong> — hormonální regulace hladu, narušena při nedostatku spánku</li>
+          <li><strong>Imunita</strong> — tvorba T-buněk a protilátek probíhá ve spánku</li>
+          <li><strong>Hořčík + glycin</strong> před spaním podporují hluboký spánek</li>
+        </ul>
+        <div class="ib" style="margin-top:14px;">
+          <div class="lbl">🌙 Spánková hygiena</div>
+          <p>Konstantní čas usínání · ložnice 18–20 °C a tma · žádné obrazovky 1 hod. před spaním (modré světlo blokuje melatonin) · rituál klidu (čtení, meditace, teplá koupel).</p>
+        </div>
+      </div>
+      <div>
+        <h3 class="gl">Psychika & vztahy</h3>
+        <p>Chronický stres zvyšuje kortizol, který narušuje mikrobiom, zpomaluje trávení a blokuje detoxikaci jater.</p>
+        <div class="g2" style="margin:12px 0;gap:10px;">
+          <div class="mc mc-dark"><span class="mc-i">🧠</span><h5>Psychická očista</h5><p>Digitální detox, deník vděčnosti, meditace, kreativní tvorba — snižují zánět způsobený stresem.</p></div>
+          <div class="mc mc-light"><span class="mc-i">🌿</span><h5>Příroda</h5><p>10 min v přírodě snižuje kortizol o 12–15 %. Aktivuje parasympatikus — „odpočívej a trávij".</p></div>
+        </div>
+        <div class="mc mc-gold" style="margin-top:10px;"><span class="mc-i">❤️</span><h5>Vztahy & komunita</h5><p>Kvalitní lidské vztahy jsou jedním z nejsilnějších prediktorů dlouhověkosti. Oxytocin z objetí snižuje kortizol a posiluje imunitu.</p></div>
+      </div>
+    </div>
+
+    <h3 class="gl" style="margin-top:8px;">Denní rutina pro zdravý metabolismus</h3>
+    <div class="tl">
+      <div class="tli"><div class="tld">6–7</div><div class="tlb"><h5>Ráno — nastartování</h5><p>Voda s citronem · ranní světlo 10 min · lehký pohyb · snídaně s proteinem a vlákninou · Aloe Vera Gel + Colostrum + Komplexní zásobení minerály</p></div></div>
+      <div class="tli"><div class="tld">12</div><div class="tlb"><h5>Oběd — hlavní jídlo dne</h5><p>Pestrý barevný talíř · bílkoviny + zelenina + zdravé tuky · Aloe Vera Gel + Komplexní zásobení minerály · krátká procházka po obědě</p></div></div>
+      <div class="tli"><div class="tld">17</div><div class="tlb"><h5>Odpoledne — pohyb</h5><p>Lehký pohyb nebo cvičení · malá svačina (ořechy, ovoce) · dostatek vody · omega-3 s jídlem</p></div></div>
+      <div class="tli"><div class="tld">19–20</div><div class="tlb"><h5>Večer — příprava na regeneraci</h5><p>Lehčí večeře nejpozději 20:00 · Aloe Vera Gel + Komplexní zásobení minerály + Podpora jater + Symbiotika · bez obrazovek od 21:00 · hořčík před spaním</p></div></div>
+    </div>
+
+  </div>
+  <div class="pf"></div>
+  <span class="pl">Metabolismus · Základ Života</span>
+  <span class="pn">9 / 10</span>
+</div>
+
+
+<!-- ═══════════════ STRANA 10: SHRNUTÍ ═══════════════ -->
+<div class="page">
+  <div class="sh">
+    <div class="sh-eye">Shrnutí & Akční plán</div>
+    <h2>Váš plán pro <em>vitální metabolismus</em></h2>
+    <p>„Dejte tělu to, co potřebuje — a ukáže vám, co dokáže." — odborník na výživu. Zdraví je konzistentní péče o všechny tři patra.</p>
+  </div>
+  <div class="c">
+
+    <div class="g3">
+      <div class="card"><span class="ci">🌱</span><h4>Střeva</h4><p>Probiotika (triple biotic), prebiotická vláknina 30 g/den, fermentované potraviny, omezit cukr, antibiotika s rozmyslem.</p></div>
+      <div class="card"><span class="ci">🛡️</span><h4>Játra</h4><p>Ostropestřec, kurkuma, cholin z vajec, zelená zelenina, omezit alkohol a průmyslově zpracované potraviny.</p></div>
+      <div class="card"><span class="ci">🔬</span><h4>Buňky</h4><p>Aloe vera, hořčík, Q10, B vitamíny, omega-3, zásadité minerály — čistit základní hmotu pro volný průtok živin.</p></div>
+    </div>
+
+    <div class="div"></div>
+
+    <h3 class="gl">10 principů pro zdravý metabolismus</h3>
+    <div class="g2">
+      <ul class="bl">
+        <li><strong>Jez pestře a barevně</strong> — každá barva = jiné fytochemikálie pro různé enzymy</li>
+        <li><strong>Pij dostatek vody</strong> — min. 30 ml/kg, základní hmota potřebuje průchodnost</li>
+        <li><strong>Pohybuj se každý den</strong> — min. 20–30 minut, stimuluje lymfu i mitochondrie</li>
+        <li><strong>Spi 7–9 hodin</strong> ve tmě, játra detoxikují v noci nejintenzivněji</li>
+        <li><strong>Manažuj stres vědomě</strong> — kortizol je tichý ničitel metabolismu</li>
+      </ul>
+      <ul class="bl go">
+        <li><strong>Zařaď fermentované potraviny</strong> každý den pro mikrobiom</li>
+        <li><strong>Jídelní okno max. 12 hod.</strong> — střeva a játra potřebují noční pauzu</li>
+        <li><strong>Doplňuj cíleně</strong> — D3+K2, hořčík, omega-3, B komplex, probiotika</li>
+        <li><strong>Pečuj o vztahy</strong> — sociální spojení snižuje systémový zánět</li>
+        <li><strong>Buď konzistentní</strong> — 3R (regulace, reparace, regenerace) potřebují čas</li>
+      </ul>
+    </div>
+
+    <div class="tip">
+      <span class="tip-e">🌿</span>
+      <div class="tip-c">
+        <h4>Komplexní metabolická kúra — 5 preparátů pro všechna 3 patra</h4>
+        <p>Promyšlená 3měsíční kúra zahrnuje: <strong>Symbiotika</strong> (prebiotika + probiotika + postbiotika s dvojitým zapouzdřením) · <strong>Colostrum</strong> (ochrana střevní stěny, imunoglobuliny) · <strong>Podpora jater</strong> (ostropestřec, pelyněk, chlorela, cholin, cystein) · <strong>Aloe Vera gel na pití</strong> (200+ bioaktivních látek, buněčný metabolismus) · <strong>Komplexní zásobení minerály</strong> (hořčík, vápník, měď, chrom, citráty a karbonáty pro základní hmotu).</p>
+      </div>
+    </div>
+
+    <div class="div"></div>
+
+    <div style="text-align:center;padding:24px 0 8px;">
+      <img src="data:image/jpeg;base64,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" alt="Rostislav Halaš" style="width:180px;height:180px;object-fit:cover;object-position:center 15%;border-radius:50%;border:4px solid var(--teal-mid);box-shadow:0 12px 32px rgba(42,85,80,.25);margin-bottom:18px;display:block;margin-left:auto;margin-right:auto;">
+      <div style="font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--teal-dark);margin-bottom:8px;">Rostislav Halaš</div>
+      <div style="font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--teal-light);margin-bottom:16px;">Výživový poradce · Nutritional Consultant</div>
+      <div style="font-size:12px;color:var(--text-light);line-height:1.8;">
+Tento e-book vychází z odborných lékařských přednášek a aktuálních vědeckých poznatků.
+      </div>
+    </div>
+
+  </div>
+  <div class="pf"></div>
+  <span class="pl">Metabolismus · Základ Života</span>
+  <span class="pn">10 / 10</span>
+</div>
+
+</body>
+</html>
